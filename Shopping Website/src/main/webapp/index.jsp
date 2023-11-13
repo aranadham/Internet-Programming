@@ -2,8 +2,9 @@
     pageEncoding="ISO-8859-1"%>
     <%@page import="model.Product" %>
     <%@page import="java.util.*" %>
-    <!-- Name:
-	 Matrix Code: 
+    <!-- 
+	Name: Aran Adham Ali
+	Matrix Code: QU202SECJ005
 	-->
 <!DOCTYPE html>
 <html>
