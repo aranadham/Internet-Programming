@@ -17,20 +17,18 @@ public class IndexController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		// Set the product list as a request attribute
 		request.setAttribute("productList", addProducts());
 
-		// Forward the request to the index.jsp page
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Get the selected product name from the request
+
 		String productName = request.getParameter("productName");
 
-		// Find the selected product in the product list
-		List<Product> productList = addProducts(); // Assuming this is your actual data retrieval logic
+
+		List<Product> productList = addProducts(); 
 		Product selectedProduct = null;
 
 		for (Product product : productList) {
@@ -40,10 +38,10 @@ public class IndexController extends HttpServlet {
 			}
 		}
 
-		// Set the selected product as a request attribute
+		
 		request.setAttribute("selectedProduct", selectedProduct);
 
-		// Forward the request to details.jsp
+		
 		request.getRequestDispatcher("details.jsp").forward(request, response);
 	}
 

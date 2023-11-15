@@ -31,11 +31,11 @@ public class RegisterController extends HttpServlet {
 		String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Create a new user
+        
         User newUser = new User(username, password);
         users.add(newUser);
 
-        // Redirect to LoginController
+        
         request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 }

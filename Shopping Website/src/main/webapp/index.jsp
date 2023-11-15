@@ -18,9 +18,7 @@
 	<h1 id="title">Product List</h1>
 	<div id="row">
 	<%
-	// Assuming productList is available in request attribute
 	List<Product> productList = (List<Product>)request.getAttribute("productList");
-	// checking for product availability....
 	if (productList != null && !productList.isEmpty()) {
 		for (Product product : productList) {
 	%>
@@ -30,7 +28,6 @@
 			<div class="item item-1"><img alt="" src="images/<%= product.getImage() %>" height="100px" width="100px"></div>
 			<div class="item item-2"><p><%=product.getName()%></p></div>
 			<div class="item item-3"><button type="submit">View More</button></div>		
-			<!-- Add a hidden input field to store the product name -->
 			<input type="hidden" name="productName"
 				value="<%=product.getName()%>">
 		</div>

@@ -11,7 +11,8 @@
 <title>Error Page</title>
 </head>
 <body>
-	<h1>It is Wrong!</h1>
+	<h1 style="color:red">Error 404</h1>
+	<p>Not found</p>
 	<a href="login.jsp">Sign in Again</a>
 	<br />
 	<a href="register.jsp">Create a New Account</a>

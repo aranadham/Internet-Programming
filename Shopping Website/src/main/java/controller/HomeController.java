@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import model.Product;
 @WebServlet("/HomeController")
 public class HomeController extends HttpServlet {
@@ -17,13 +19,12 @@ public class HomeController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Initialize cartItems attribute if not present in the application scope
-        ServletContext application = getServletContext();
-        List<Product> cartItems = (List<Product>) application.getAttribute("cartItems");
+    	HttpSession session = request.getSession(false);
+        List<Product> cartItems = (List<Product>) session.getAttribute("cartItems");
 
         if (cartItems == null) {
             cartItems = new ArrayList<>();
-            application.setAttribute("cartItems", cartItems);
+            session.setAttribute("cartItems", cartItems);
         }
 
         request.setAttribute("productList", addProducts());
@@ -35,46 +36,39 @@ public class HomeController extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("add".equals(action)) {
-            // Code for adding to the cart
+           
             String productImage = request.getParameter("productImage");
             String productName = request.getParameter("productName");
             String productDesc = request.getParameter("productDesc");
             double productPrice = Double.parseDouble(request.getParameter("productPrice"));
 
-            // Retrieve the current cart items from the application scope
-            ServletContext application = getServletContext();
-            List<Product> cartItems = (List<Product>) application.getAttribute("cartItems");
 
-            // If the cart is null, create a new list
+            HttpSession session = request.getSession(false);
+            List<Product> cartItems = (List<Product>) session.getAttribute("cartItems");
+
+        
             if (cartItems == null) {
                 cartItems = new ArrayList<>();
-                application.setAttribute("cartItems", cartItems);
+                session.setAttribute("cartItems", cartItems);
             }
 
-            // Create a new Product object
+
             Product product = new Product();
             product.setImage(productImage);
             product.setName(productName);
             product.setDescription(productDesc);
             product.setPrice(productPrice);
 
-            // Add the product to the cart
             cartItems.add(product);
-
-            // Update the cartItems attribute in the application scope
-            application.setAttribute("cartItems", cartItems);
+            session.setAttribute("cartItems", cartItems);
         } else if ("remove".equals(action)) {
-            // Code for removing from the cart
             int removeIndex = Integer.parseInt(request.getParameter("removeIndex"));
 
-            // Retrieve the current cart items from the application scope
-            ServletContext application = getServletContext();
-            List<Product> cartItems = (List<Product>) application.getAttribute("cartItems");
-
-            // If the cart is not null and the index is valid, remove the item
+            HttpSession session = request.getSession(false);
+            List<Product> cartItems = (List<Product>) session.getAttribute("cartItems");
             if (cartItems != null && removeIndex >= 0 && removeIndex < cartItems.size()) {
                 cartItems.remove(removeIndex);
-                application.setAttribute("cartItems", cartItems);
+                session.setAttribute("cartItems", cartItems);
             }
         }
 
